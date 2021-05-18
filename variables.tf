@@ -149,3 +149,13 @@ variable "tags" {
     environment : "dev"
   }
 }
+
+variable "sa_primary_blob_endpoint" {
+  description = "The storage account primary blob endpoint"
+  default     = ""
+}
+
+variable "sa_primary_access_key" {
+  description = "The storage account primary access"
+  default     = ""
+}

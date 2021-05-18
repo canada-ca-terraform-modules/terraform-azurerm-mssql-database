@@ -33,7 +33,9 @@ resource "azurerm_mssql_database" "sql_db" {
 
 resource "azurerm_mssql_database_extended_auditing_policy" "mssqldb" {
   database_id            = azurerm_mssql_database.sql_db.id
-  storage_endpoint       = data.azurerm_storage_account.storageaccountinfo.primary_blob_endpoint
+  storage_endpoint           = var.sa_primary_blob_endpoint
+  storage_account_access_key = var.sa_primary_access_key
+
   retention_in_days      = var.retention_days
   log_monitoring_enabled = true
 }
