@@ -152,10 +152,10 @@ variable "tags" {
 
 variable "sa_primary_blob_endpoint" {
   description = "The storage account primary blob endpoint"
-  default     = ""
+  default     = null
 }
 
 variable "sa_primary_access_key" {
   description = "The storage account primary access"
-  default     = ""
+  default     = null
 }
