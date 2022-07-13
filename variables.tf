@@ -12,7 +12,7 @@ variable "server_name" {
 
 variable "auto_pause_delay_in_minutes" {
   description = "(Optional) Time in minutes after which database is automatically paused. A value of -1 means that automatic pause is disabled. This property is only settable for General Purpose Serverless databases."
-  default     = null
+  default     = -1
 }
 
 variable "create_mode" {
@@ -152,10 +152,10 @@ variable "tags" {
 
 variable "sa_primary_blob_endpoint" {
   description = "The storage account primary blob endpoint"
-  default     = null
+  default     = ""
 }
 
 variable "sa_primary_access_key" {
   description = "The storage account primary access"
-  default     = null
+  default     = ""
 }
