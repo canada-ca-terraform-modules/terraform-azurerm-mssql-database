@@ -47,7 +47,7 @@ variable "max_size_gb" {
 
 variable "min_capacity" {
   description = "(Optional) Minimal capacity that database will always have allocated, if not paused. This property is only settable for General Purpose Serverless databases."
-  default     = null
+  default     = 1
 }
 
 variable "restore_point_in_time" {
