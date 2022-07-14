@@ -12,7 +12,7 @@ variable "server_name" {
 
 variable "auto_pause_delay_in_minutes" {
   description = "(Optional) Time in minutes after which database is automatically paused. A value of -1 means that automatic pause is disabled. This property is only settable for General Purpose Serverless databases."
-  default     = -1
+  default     = 60
 }
 
 variable "create_mode" {
