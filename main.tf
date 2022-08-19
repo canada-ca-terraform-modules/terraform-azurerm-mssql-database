@@ -1,6 +1,6 @@
 resource "azurerm_mssql_database" "sql_db" {
   name                        = var.name
-  server_id                   = var.server_id
+  server_id                   = substr(var.sku_name, 0, length(local.general_serverless_prefix)) == local.general_serverless_prefix ? null : var.server_id 
   collation                   = var.collation
   license_type                = local.license_type
   max_size_gb                 = var.max_size_gb
