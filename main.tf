@@ -1,4 +1,4 @@
-resource "null_resource" "serverless" {
+resource "null_resource" "auto_scaling_prereq" {
   count = substr(var.sku_name, 0, length(local.general_serverless_prefix)) == local.general_serverless_prefix || substr(var.sku_name, 0, length(local.hyperscale_prefix)) == local.hyperscale_prefix ? 1 : 0
   provisioner "local-exec" {
     command     = <<EOT
@@ -55,11 +55,8 @@ resource "azurerm_mssql_database" "sql_db" {
             local.business_prefix ? var.zone_redundant : null
     )
 
-  dynamic "short_term_retention_policy" {
-    for_each = substr(var.sku_name, 0, length(local.hyperscale_prefix)) == local.hyperscale_prefix ? [] : [1]
-    content {
+  short_term_retention_policy {
       retention_days = var.short_retentiondays
-    }
   }
   //Dynamic block as LTR is not supported by hyperscale nor serverless with autopause.
   #dynamic 
@@ -76,13 +73,13 @@ resource "azurerm_mssql_database" "sql_db" {
   
   tags       = var.tags
   depends_on = [
-    null_resource.serverless,
+    null_resource.auto_scaling_prereq,
     var.db_depends_on
   ]
 }
 
 resource "azurerm_mssql_database_extended_auditing_policy" "mssqldb" {
-  database_id            = azurerm_mssql_database.sql_db.id
+  database_id                = azurerm_mssql_database.sql_db.id
   storage_endpoint           = var.sa_primary_blob_endpoint
   storage_account_access_key = var.sa_primary_access_key
 
