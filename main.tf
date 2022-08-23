@@ -55,9 +55,6 @@ resource "azurerm_mssql_database" "sql_db" {
             local.business_prefix ? var.zone_redundant : null
     )
 
-  tags       = var.tags
-  depends_on = [var.db_depends_on]
-
   dynamic "short_term_retention_policy" {
     for_each = substr(var.sku_name, 0, length(local.hyperscale_prefix)) == local.hyperscale_prefix ? [] : [1]
     content {
@@ -73,10 +70,14 @@ resource "azurerm_mssql_database" "sql_db" {
       monthly_retention = var.ltr_monthly_retention
       yearly_retention  = var.ltr_yearly_retention
       week_of_year      = var.ltr_week_of_year
+    
+    }
   }
-
+  
+  tags       = var.tags
   depends_on = [
-    null_resource.serverless
+    null_resource.serverless,
+    var.db_depends_on
   ]
 }
 
