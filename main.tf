@@ -1,3 +1,16 @@
+resource "null_resource" "serverless" {
+  count = substr(var.sku_name, 0, length(local.general_serverless_prefix)) == local.general_serverless_prefix || substr(var.sku_name, 0, length(local.hyperscale_prefix)) == local.hyperscale_prefix ? 1 : 0
+  provisioner "local-exec" {
+    command     = <<EOT
+        $secureString = ConvertTo-SecureString -String $env:ARM_CLIENT_SECRET -AsPlainText -Force
+        $pscredential = New-Object System.Management.Automation.PSCredential($env:ARM_CLIENT_ID, $secureString)
+        Connect-AzAccount -ServicePrincipal -Credential $pscredential -TenantId $env:ARM_TENANT_ID -Subscription $env:ARM_SUBSCRIPTION_ID | Out-Null
+        Set-AzureRmSqlDatabaseBackupLongTermRetentionPolicy -ResourceGroupName "${var.resource_group_name}" -ServerName "${var.server_name}" -DatabaseName "${var.name}" -RemovePolicy
+        EOT
+    interpreter = ["pwsh", "-Command"]
+  }
+}
+
 resource "azurerm_mssql_database" "sql_db" {
   name                        = var.name
   server_id                   = var.server_id 
@@ -54,14 +67,17 @@ resource "azurerm_mssql_database" "sql_db" {
   //Dynamic block as LTR is not supported by hyperscale nor serverless with autopause.
   #dynamic 
   long_term_retention_policy {
-    #for_each = substr(var.sku_name, 0, length(local.general_serverless_prefix)) == local.general_serverless_prefix || substr(var.sku_name, 0, length(local.hyperscale_prefix)) == local.hyperscale_prefix ? [] : [1]
-    #content{}
-    weekly_retention  = substr(var.sku_name, 0, length(local.general_serverless_prefix)) == local.general_serverless_prefix || substr(var.sku_name, 0, length(local.hyperscale_prefix)) == local.hyperscale_prefix ? null : var.ltr_weekly_retention
-    monthly_retention = substr(var.sku_name, 0, length(local.general_serverless_prefix)) == local.general_serverless_prefix || substr(var.sku_name, 0, length(local.hyperscale_prefix)) == local.hyperscale_prefix ? null : var.ltr_monthly_retention
-    yearly_retention  = substr(var.sku_name, 0, length(local.general_serverless_prefix)) == local.general_serverless_prefix || substr(var.sku_name, 0, length(local.hyperscale_prefix)) == local.hyperscale_prefix ? null : var.ltr_yearly_retention
-    week_of_year      = substr(var.sku_name, 0, length(local.general_serverless_prefix)) == local.general_serverless_prefix || substr(var.sku_name, 0, length(local.hyperscale_prefix)) == local.hyperscale_prefix ? null : var.ltr_week_of_year
-
+    for_each = substr(var.sku_name, 0, length(local.general_serverless_prefix)) == local.general_serverless_prefix || substr(var.sku_name, 0, length(local.hyperscale_prefix)) == local.hyperscale_prefix ? [] : [1]
+    content{
+      weekly_retention  = var.ltr_weekly_retention
+      monthly_retention = var.ltr_monthly_retention
+      yearly_retention  = var.ltr_yearly_retention
+      week_of_year      = var.ltr_week_of_year
   }
+
+  depends_on = [
+    null_resource.serverless
+  ]
 }
 
 resource "azurerm_mssql_database_extended_auditing_policy" "mssqldb" {
