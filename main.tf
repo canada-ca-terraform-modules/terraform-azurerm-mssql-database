@@ -52,7 +52,8 @@ resource "azurerm_mssql_database" "sql_db" {
     }
   }
   //Dynamic block as LTR is not supported by hyperscale nor serverless with autopause.
-  dynamic "long_term_retention_policy" {
+  #dynamic 
+  long_term_retention_policy {
     #for_each = substr(var.sku_name, 0, length(local.general_serverless_prefix)) == local.general_serverless_prefix || substr(var.sku_name, 0, length(local.hyperscale_prefix)) == local.hyperscale_prefix ? [] : [1]
     #content{}
     weekly_retention  = substr(var.sku_name, 0, length(local.general_serverless_prefix)) == local.general_serverless_prefix || substr(var.sku_name, 0, length(local.hyperscale_prefix)) == local.hyperscale_prefix ? null : var.ltr_weekly_retention
