@@ -45,21 +45,21 @@ resource "azurerm_mssql_database" "sql_db" {
   tags       = var.tags
   depends_on = [var.db_depends_on]
 
-    dynamic "short_term_retention_policy" {
+  dynamic "short_term_retention_policy" {
     for_each = substr(var.sku_name, 0, length(local.hyperscale_prefix)) == local.hyperscale_prefix ? [] : [1]
     content {
-    retention_days = var.short_retentiondays
+      retention_days = var.short_retentiondays
     }
   }
-      //Dynamic block as LTR is not supported by hyperscale nor serverless with autopause.
+  //Dynamic block as LTR is not supported by hyperscale nor serverless with autopause.
   dynamic "long_term_retention_policy" {
-    for_each = substr(var.sku_name, 0, length(local.general_serverless_prefix)) == local.general_serverless_prefix || substr(var.sku_name, 0, length(local.hyperscale_prefix)) == local.hyperscale_prefix ? [] : [1]
-    content {
-    weekly_retention  = var.ltr_weekly_retention
-    monthly_retention = var.ltr_monthly_retention
-    yearly_retention  = var.ltr_yearly_retention
-    week_of_year      = var.ltr_week_of_year
-    }
+    #for_each = substr(var.sku_name, 0, length(local.general_serverless_prefix)) == local.general_serverless_prefix || substr(var.sku_name, 0, length(local.hyperscale_prefix)) == local.hyperscale_prefix ? [] : [1]
+    #content{}
+    weekly_retention  = substr(var.sku_name, 0, length(local.general_serverless_prefix)) == local.general_serverless_prefix || substr(var.sku_name, 0, length(local.hyperscale_prefix)) == local.hyperscale_prefix ? null : var.ltr_weekly_retention
+    monthly_retention = substr(var.sku_name, 0, length(local.general_serverless_prefix)) == local.general_serverless_prefix || substr(var.sku_name, 0, length(local.hyperscale_prefix)) == local.hyperscale_prefix ? null : var.ltr_monthly_retention
+    yearly_retention  = substr(var.sku_name, 0, length(local.general_serverless_prefix)) == local.general_serverless_prefix || substr(var.sku_name, 0, length(local.hyperscale_prefix)) == local.hyperscale_prefix ? null : var.ltr_yearly_retention
+    week_of_year      = substr(var.sku_name, 0, length(local.general_serverless_prefix)) == local.general_serverless_prefix || substr(var.sku_name, 0, length(local.hyperscale_prefix)) == local.hyperscale_prefix ? null : var.ltr_week_of_year
+
   }
 }
 
