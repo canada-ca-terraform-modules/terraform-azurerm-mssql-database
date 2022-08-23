@@ -159,3 +159,7 @@ variable "sa_primary_access_key" {
   description = "The storage account primary access"
   default     = ""
 }
+
+variable "resource_group_name" {
+  description = "The resource group for the sql db"
+}
