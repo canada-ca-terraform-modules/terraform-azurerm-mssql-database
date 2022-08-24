@@ -85,10 +85,6 @@ variable "zone_redundant" {
   default     = null
 }
 
-variable "dbowner" {
-  description = "Azure Active Directory Account that will be dbowner"
-}
-
 variable "short_retentiondays" {
   description = "Point in Time Restore Configuration.  Values has to be between 7 and 35"
   default     = 7
