@@ -5,7 +5,10 @@ resource "null_resource" "auto_scaling_prereq" {
         $secureString = ConvertTo-SecureString -String $env:ARM_CLIENT_SECRET -AsPlainText -Force
         $pscredential = New-Object System.Management.Automation.PSCredential($env:ARM_CLIENT_ID, $secureString)
         Connect-AzAccount -ServicePrincipal -Credential $pscredential -TenantId $env:ARM_TENANT_ID -Subscription $env:ARM_SUBSCRIPTION_ID | Out-Null
-        Set-AzSqlDatabaseBackupLongTermRetentionPolicy -ResourceGroupName "${var.resource_group_name}" -ServerName "${var.server_name}" -DatabaseName "${var.name}" -RemovePolicy
+        $server = Get-AzSqlDatabase -ResourceGroupName "${var.resource_group_name}" -ServerName "${var.server_name}" -DatabaseName "${var.name}" -ErrorAction SilentlyContinue
+        if ($server){
+          Set-AzSqlDatabaseBackupLongTermRetentionPolicy -ResourceGroupName "${var.resource_group_name}" -ServerName "${var.server_name}" -DatabaseName "${var.name}" -RemovePolicy
+        }
         EOT
     interpreter = ["pwsh", "-Command"]
   }
