@@ -80,7 +80,7 @@ resource "azurerm_mssql_database" "this" {
   ]
 }
 
-resource "azurerm_mssql_database_extended_auditing_policy" "mssqldb" {
+resource "azurerm_mssql_database_extended_auditing_policy" "this" {
   database_id                = azurerm_mssql_database.this.id
   storage_endpoint           = var.sa_primary_blob_endpoint
   storage_account_access_key = var.sa_primary_access_key
