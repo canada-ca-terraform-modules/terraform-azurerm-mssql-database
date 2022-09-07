@@ -35,11 +35,6 @@ variable "elastic_pool_id" {
   default     = null
 }
 
-variable "license_type" {
-  description = "(Optional) Specifies the license type applied to this database. Possible values are LicenseIncluded and BasePrice."
-  default     = "BasePrice"
-}
-
 variable "max_size_gb" {
   description = "(Optional) The max size of the database in gigabytes."
   default     = null
@@ -85,7 +80,7 @@ variable "zone_redundant" {
   default     = null
 }
 
-variable "short_retentiondays" {
+variable "str_days" {
   description = "Point in Time Restore Configuration.  Values has to be between 7 and 35"
   default     = 7
 }
@@ -134,7 +129,7 @@ variable "kv_rg" {
   default     = ""
 }
 
-variable "storageaccountinfo_resource_group_name" {
+variable "sa_resource_group_name" {
   description = "The storageaccountinfo resource group name"
   default     = ""
 }

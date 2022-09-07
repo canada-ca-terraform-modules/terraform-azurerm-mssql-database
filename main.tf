@@ -1,5 +1,6 @@
-resource "null_resource" "auto_scaling_prereq" {
+resource "null_resource" "this" {
   count = substr(var.sku_name, 0, length(local.general_serverless_prefix)) == local.general_serverless_prefix || substr(var.sku_name, 0, length(local.hyperscale_prefix)) == local.hyperscale_prefix ? 1 : 0
+  
   provisioner "local-exec" {
     command     = <<EOT
         $secureString = ConvertTo-SecureString -String $env:ARM_CLIENT_SECRET -AsPlainText -Force
@@ -13,7 +14,7 @@ resource "null_resource" "auto_scaling_prereq" {
   }
 }
 
-resource "azurerm_mssql_database" "sql_db" {
+resource "azurerm_mssql_database" "this" {
   name                        = var.name
   server_id                   = var.server_id 
   collation                   = var.collation
@@ -26,42 +27,41 @@ resource "azurerm_mssql_database" "sql_db" {
   restore_point_in_time       = var.restore_point_in_time
   sample_name                 = var.sample_name
 
+  // SERVERLESS
+  auto_pause_delay_in_minutes = (
+      substr(var.sku_name, 0, length(local.general_serverless_prefix)) == 
+          local.general_serverless_prefix && 
+          var.auto_pause_delay_in_minutes >= local.min_auto_pause_supported ?
+          var.auto_pause_delay_in_minutes : null
+  )
+  min_capacity = (
+      substr(var.sku_name, 0, length(local.general_serverless_prefix)) == 
+          local.general_serverless_prefix ? var.min_capacity : null
+  )
 
-      //Parameters for Serverless
-    auto_pause_delay_in_minutes = (
-        substr(var.sku_name, 0, length(local.general_serverless_prefix)) == 
-            local.general_serverless_prefix && 
-            var.auto_pause_delay_in_minutes >= local.min_auto_pause_supported ?
-            var.auto_pause_delay_in_minutes : null
-    )
-    min_capacity = (
-        substr(var.sku_name, 0, length(local.general_serverless_prefix)) == 
-           local.general_serverless_prefix ? var.min_capacity : null
-    )
+  // HYPERSCALE
+  read_replica_count = (
+      substr(var.sku_name, 0, length(local.hyperscale_prefix)) == 
+          local.hyperscale_prefix ? var.read_replica_count : null
+  )
 
-      //Parameters for HyperScale
-    read_replica_count = (
-        substr(var.sku_name, 0, length(local.hyperscale_prefix)) == 
-            local.hyperscale_prefix ? var.read_replica_count : null
-    )
-
-      //Parameters for BC and Premium.
-    read_scale = (
-        substr(var.sku_name, 0, length(local.premium_prefix)) == local.premium_prefix || 
-        substr(var.sku_name, 0, length(local.business_prefix)) == 
-            local.business_prefix ? var.read_scale : null
-    )
-    zone_redundant = (
-        substr(var.sku_name, 0, length(local.premium_prefix)) == local.premium_prefix || 
-        substr(var.sku_name, 0, length(local.business_prefix)) == 
-            local.business_prefix ? var.zone_redundant : null
-    )
+  // BC & PREMIUM
+  read_scale = (
+      substr(var.sku_name, 0, length(local.premium_prefix)) == local.premium_prefix || 
+      substr(var.sku_name, 0, length(local.business_prefix)) == 
+          local.business_prefix ? var.read_scale : null
+  )
+  zone_redundant = (
+      substr(var.sku_name, 0, length(local.premium_prefix)) == local.premium_prefix || 
+      substr(var.sku_name, 0, length(local.business_prefix)) == 
+          local.business_prefix ? var.zone_redundant : null
+  )
 
   short_term_retention_policy {
       retention_days = var.short_retentiondays
   }
-  //Dynamic block as LTR is not supported by hyperscale nor serverless with autopause.
-  #dynamic 
+
+  // LTR
   dynamic "long_term_retention_policy" {
     for_each = substr(var.sku_name, 0, length(local.general_serverless_prefix)) == local.general_serverless_prefix || substr(var.sku_name, 0, length(local.hyperscale_prefix)) == local.hyperscale_prefix ? [] : [1]
     content {
@@ -75,16 +75,15 @@ resource "azurerm_mssql_database" "sql_db" {
   
   tags       = var.tags
   depends_on = [
-    null_resource.auto_scaling_prereq,
+    null_resource.this,
     var.db_depends_on
   ]
 }
 
 resource "azurerm_mssql_database_extended_auditing_policy" "mssqldb" {
-  database_id                = azurerm_mssql_database.sql_db.id
+  database_id                = azurerm_mssql_database.this.id
   storage_endpoint           = var.sa_primary_blob_endpoint
   storage_account_access_key = var.sa_primary_access_key
-
   retention_in_days      = var.retention_days
   log_monitoring_enabled = true
 }

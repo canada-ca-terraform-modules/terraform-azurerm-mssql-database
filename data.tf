@@ -1,8 +1,5 @@
 locals {
-  kv_name = var.kv_name
-  kv_rg   = var.kv_rg
-  env_sku = substr(var.sku_name, 0, 5)
-  license_type = local.env_sku == "GP_S_" ? null : "BasePrice"
+  license_type = substr(var.sku_name, 0, 5) == "GP_S_" ? "LicenseIncluded" : "BasePrice"
   read_scale_out = false
     
     // Service tier prefixes
@@ -16,6 +13,6 @@ locals {
 }
 
 data "azurerm_key_vault" "sqlhstkv" {
-  name                = local.kv_name
-  resource_group_name = local.kv_rg
+  name                = var.kv_name
+  resource_group_name = var.kv_rg
 }
