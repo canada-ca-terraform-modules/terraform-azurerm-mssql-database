@@ -58,7 +58,7 @@ resource "azurerm_mssql_database" "this" {
   )
 
   short_term_retention_policy {
-      retention_days = var.short_retentiondays
+      retention_days = var.str_days
   }
 
   // LTR
