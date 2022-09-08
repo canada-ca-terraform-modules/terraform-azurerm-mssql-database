@@ -14,7 +14,7 @@ resource "null_resource" "this" {
   }
 }
 
-resource "azurerm_mssql_database" "this" {
+resource "azurerm_mssql_database" "sql_db" {
   name                        = var.name
   server_id                   = var.server_id 
   collation                   = var.collation
