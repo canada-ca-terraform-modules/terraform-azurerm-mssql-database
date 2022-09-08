@@ -1,5 +1,5 @@
 resource "null_resource" "this" {
-  count = substr(var.sku_name, 0, length(local.general_serverless_prefix)) == local.general_serverless_prefix || substr(var.sku_name, 0, length(local.hyperscale_prefix)) == local.hyperscale_prefix ? 1 : 0
+  count = substr(var.sku_name, 0, length(local.general_serverless_prefix)) == local.general_serverless_prefix ? 1 : 0
   
   provisioner "local-exec" {
     command     = <<EOT
@@ -18,7 +18,7 @@ resource "azurerm_mssql_database" "sql_db" {
   name                        = var.name
   server_id                   = var.server_id 
   collation                   = var.collation
-  license_type                = substr(var.sku_name, 0, length(local.general_serverless_prefix)) == local.general_serverless_prefix ? "LicenseIncluded" : "BasePrice"
+  license_type                = "LicenseIncluded"
   max_size_gb                 = var.max_size_gb
   sku_name                    = var.sku_name
   create_mode                 = var.create_mode
