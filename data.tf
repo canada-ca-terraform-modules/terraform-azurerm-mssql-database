@@ -1,5 +1,5 @@
 locals {
-  license_type = substr(var.sku_name, 0, 5) == "GP_S_" ? "LicenseIncluded" : "BasePrice"
+  license_type = substr(var.sku_name, 3, 1) == "S" ? "LicenseIncluded" : "BasePrice"
   read_scale_out = false
     
     // Service tier prefixes
