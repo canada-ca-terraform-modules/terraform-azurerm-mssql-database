@@ -77,7 +77,6 @@ resource "azurerm_mssql_database" "sql_db" {
                     {"prefix" = substr(var.sku_name, 0, length(local.general_serverless_prefix))})
   depends_on = [
     null_resource.this,
-    var.db_depends_on
   ]
 }
 

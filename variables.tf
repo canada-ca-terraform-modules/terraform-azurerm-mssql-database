@@ -114,11 +114,6 @@ variable "retention_days" {
   default     = 90
 }
 
-variable "db_depends_on" {
-  type    = any
-  default = []
-}
-
 variable "kv_name" {
   description = "The keyvault name"
   default     = ""
