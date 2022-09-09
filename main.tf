@@ -73,7 +73,8 @@ resource "azurerm_mssql_database" "sql_db" {
     }
   }
   
-  tags       = var.tags
+  tags       = concat(var.tags, 
+                    {"prefix" = substr(var.sku_name, 0, length(local.general_serverless_prefix))})
   depends_on = [
     null_resource.this,
     var.db_depends_on
