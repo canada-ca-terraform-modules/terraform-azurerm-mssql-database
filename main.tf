@@ -18,7 +18,7 @@ resource "azurerm_mssql_database" "sql_db" {
   name                        = var.name
   server_id                   = var.server_id 
   collation                   = var.collation
-  license_type                = "LicenseIncluded"
+  license_type                = var.license_type
   max_size_gb                 = var.max_size_gb
   sku_name                    = var.sku_name
   create_mode                 = var.create_mode

@@ -149,3 +149,7 @@ variable "sa_primary_access_key" {
 variable "resource_group_name" {
   description = "The resource group for the sql db"
 }
+
+variable "license_type" {
+ default = "BasePrice" 
+}
