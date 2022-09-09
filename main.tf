@@ -15,15 +15,10 @@ resource "null_resource" "this" {
 }
 
 resource "azurerm_mssql_database" "sql_db" {
-  lifecycle {
-    ignore_changes = [
-      license_type
-    ]
-  }
   name                        = var.name
   server_id                   = var.server_id 
   collation                   = var.collation
-  license_type                = local.license_type
+  license_type                = "LicenseIncluded"
   max_size_gb                 = var.max_size_gb
   sku_name                    = var.sku_name
   create_mode                 = var.create_mode
@@ -31,7 +26,11 @@ resource "azurerm_mssql_database" "sql_db" {
   elastic_pool_id             = var.elastic_pool_id
   restore_point_in_time       = var.restore_point_in_time
   sample_name                 = var.sample_name
-
+  lifecycle {
+    ignore_changes = [
+      license_type
+    ]
+  }
   // SERVERLESS
   auto_pause_delay_in_minutes = (
       substr(var.sku_name, 0, length(local.general_serverless_prefix)) == 
