@@ -6,7 +6,6 @@ locals {
   hyperscale_prefix = "HS"
   general_serverless_prefix = "GP_S"
   license_type = substr(var.sku_name, 0, length(local.general_serverless_prefix)) == local.general_serverless_prefix ? "LicenseIncluded" : "BasePrice"
-
     // Minimum time in minutes supported by Terraform configuration (only General Purpose Serverless)
     min_auto_pause_supported = 60
 }
