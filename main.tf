@@ -9,6 +9,7 @@ resource "null_resource" "this" {
         if (Get-AzSqlDatabase -ResourceGroupName "${var.resource_group_name}" -ServerName "${var.server_name}" | where DatabaseName -eq "${var.name}") {
           Set-AzSqlDatabaseBackupLongTermRetentionPolicy -ResourceGroupName "${var.resource_group_name}" -ServerName "${var.server_name}" -DatabaseName "${var.name}" -RemovePolicy
         }
+        Disconnect-AzAccount | Out-Null
         EOT
     interpreter = ["pwsh", "-Command"]
   }
