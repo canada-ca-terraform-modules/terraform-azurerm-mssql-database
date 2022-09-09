@@ -26,11 +26,7 @@ resource "azurerm_mssql_database" "sql_db" {
   elastic_pool_id             = var.elastic_pool_id
   restore_point_in_time       = var.restore_point_in_time
   sample_name                 = var.sample_name
-  lifecycle {
-    ignore_changes = [
-      license_type
-    ]
-  }
+
   // SERVERLESS
   auto_pause_delay_in_minutes = (
       substr(var.sku_name, 0, length(local.general_serverless_prefix)) == 
