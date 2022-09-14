@@ -1,4 +1,9 @@
+resource "time_sleep" "this" {
+  create_duration = "5m"
+}
+
 resource "null_resource" "this" {
+  depends_on = [time_sleep.this]
   count = substr(var.sku_name, 0, length(local.general_serverless_prefix)) == local.general_serverless_prefix ? 1 : 0
   
   provisioner "local-exec" {
