@@ -2,29 +2,40 @@ resource "time_sleep" "this" {
   create_duration = "5m"
 }
 
+
 resource "null_resource" "this" {
-  depends_on = [time_sleep.this]
-  count = substr(var.sku_name, 0, length(local.general_serverless_prefix)) == local.general_serverless_prefix ? 1 : 0
-  
   provisioner "local-exec" {
-    command     = <<EOT
-        $secureString = ConvertTo-SecureString -String $env:ARM_CLIENT_SECRET -AsPlainText -Force
-        $pscredential = New-Object System.Management.Automation.PSCredential($env:ARM_CLIENT_ID, $secureString)
-        Connect-AzAccount -ServicePrincipal -Credential $pscredential -TenantId $env:ARM_TENANT_ID -Subscription $env:ARM_SUBSCRIPTION_ID | Out-Null
-        if (Get-AzSqlDatabase -ResourceGroupName "${var.resource_group_name}" -ServerName "${var.server_name}" | where DatabaseName -eq "${var.name}") {
-          Set-AzSqlDatabaseBackupLongTermRetentionPolicy -ResourceGroupName "${var.resource_group_name}" -ServerName "${var.server_name}" -DatabaseName "${var.name}" -RemovePolicy
-        }
-        Disconnect-AzAccount | Out-Null
-        EOT
-    interpreter = ["pwsh", "-Command"]
+    command = "cat ${local.script}"
   }
+  depends_on = [
+    [time_sleep.this]
+  ]
 }
+
+
+
+# resource "null_resource" "this" {
+#   depends_on = [time_sleep.this]
+#   count = substr(var.sku_name, 0, length(local.general_serverless_prefix)) == local.general_serverless_prefix ? 1 : 0
+  
+#   provisioner "local-exec" {
+#     command     = <<EOT
+#         $secureString = ConvertTo-SecureString -String $env:ARM_CLIENT_SECRET -AsPlainText -Force
+#         $pscredential = New-Object System.Management.Automation.PSCredential($env:ARM_CLIENT_ID, $secureString)
+#         Connect-AzAccount -ServicePrincipal -Credential $pscredential -TenantId $env:ARM_TENANT_ID -Subscription $env:ARM_SUBSCRIPTION_ID | Out-Null
+#         if (Get-AzSqlDatabase -ResourceGroupName "${var.resource_group_name}" -ServerName "${var.server_name}" | where DatabaseName -eq "${var.name}") {
+#           Set-AzSqlDatabaseBackupLongTermRetentionPolicy -ResourceGroupName "${var.resource_group_name}" -ServerName "${var.server_name}" -DatabaseName "${var.name}" -RemovePolicy
+#         }
+#         Disconnect-AzAccount | Out-Null
+#         EOT
+#     interpreter = ["pwsh", "-Command"]
+#   }
+# }
 
 resource "azurerm_mssql_database" "sql_db" {
   name                        = var.name
   server_id                   = var.server_id 
   collation                   = var.collation
-  #license_type                = var.license_type
   max_size_gb                 = var.max_size_gb
   sku_name                    = var.sku_name
   create_mode                 = var.create_mode
