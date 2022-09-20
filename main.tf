@@ -8,7 +8,7 @@ resource "null_resource" "this" {
     command = "cat ${local.script}"
   }
   depends_on = [
-    [time_sleep.this]
+    time_sleep.this
   ]
 }
 
