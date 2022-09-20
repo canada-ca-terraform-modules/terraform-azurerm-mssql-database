@@ -93,7 +93,7 @@ resource "azurerm_mssql_database" "sql_db" {
   tags       = merge(var.tags, 
                     {"prefix" = substr(var.sku_name, 0, length(local.general_serverless_prefix))})
   depends_on = [
-    null_resource.this,
+    null_resource.this
   ]
 }
 
