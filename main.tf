@@ -40,6 +40,8 @@ resource "azurerm_mssql_database" "sql_db" {
   sku_name                    = var.sku_name
   create_mode                 = var.create_mode
   creation_source_database_id = var.creation_source_database_id
+  restore_dropped_database_id = var.restore_dropped_database_id
+  recover_database_id         = var.recover_database_id
   elastic_pool_id             = var.elastic_pool_id
   restore_point_in_time       = var.restore_point_in_time
   sample_name                 = var.sample_name
