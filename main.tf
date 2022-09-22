@@ -21,7 +21,8 @@ resource "azurerm_mssql_database" "sql_db" {
   create_mode                 = var.create_mode
   creation_source_database_id = var.creation_source_database_id
   restore_dropped_database_id = var.restore_dropped_database_id
-  recover_database_id         = var.recover_database_idrestore_point_in_time       = var.restore_point_in_time
+  recover_database_id         = var.recover_database_id
+  restore_point_in_time       = var.restore_point_in_time
   
   sample_name                 = var.sample_name
   elastic_pool_id             = var.elastic_pool_id
@@ -88,7 +89,6 @@ resource "azurerm_mssql_database_extended_auditing_policy" "this" {
   log_monitoring_enabled = true
   
   depends_on = [
-    
     azurerm_mssql_database.sql_db
   ]
 }
