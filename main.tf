@@ -3,7 +3,7 @@ resource "time_sleep" "this" {
 }
 
 resource "null_resource" "this" {
-  count = substr(var.sku_name, 0, 4) == local.general_serverless_prefix ? 0 : 1
+  count = substr(var.sku, 0, 4) == local.general_serverless_prefix ? 0 : 1
   provisioner "local-exec" {
     command = "cat ${local.script}"
   }
@@ -17,7 +17,7 @@ resource "azurerm_mssql_database" "sql_db" {
   server_id   = var.server_id
   collation   = var.collation
   max_size_gb = var.max_size_gb
-  sku_name    = var.sku_name
+  sku_name    = var.sku
 
   create_mode                 = var.create_mode
   creation_source_database_id = var.creation_source_database_id
@@ -30,31 +30,31 @@ resource "azurerm_mssql_database" "sql_db" {
 
   // SERVERLESS
   auto_pause_delay_in_minutes = (
-    substr(var.sku_name, 0, length(local.general_serverless_prefix)) ==
+    substr(var.sku, 0, length(local.general_serverless_prefix)) ==
     local.general_serverless_prefix &&
     var.auto_pause_delay_in_minutes >= local.min_auto_pause_supported ?
     var.auto_pause_delay_in_minutes : null
   )
   min_capacity = (
-    substr(var.sku_name, 0, length(local.general_serverless_prefix)) ==
+    substr(var.sku, 0, length(local.general_serverless_prefix)) ==
     local.general_serverless_prefix ? var.min_capacity : null
   )
 
   // HYPERSCALE
   read_replica_count = (
-    substr(var.sku_name, 0, length(local.hyperscale_prefix)) ==
+    substr(var.sku, 0, length(local.hyperscale_prefix)) ==
     local.hyperscale_prefix ? var.read_replica_count : null
   )
 
   // BC & PREMIUM
   read_scale = (
-    substr(var.sku_name, 0, length(local.premium_prefix)) == local.premium_prefix ||
-    substr(var.sku_name, 0, length(local.business_prefix)) ==
+    substr(var.sku, 0, length(local.premium_prefix)) == local.premium_prefix ||
+    substr(var.sku, 0, length(local.business_prefix)) ==
     local.business_prefix ? var.read_scale : null
   )
   zone_redundant = (
-    substr(var.sku_name, 0, length(local.premium_prefix)) == local.premium_prefix ||
-    substr(var.sku_name, 0, length(local.business_prefix)) ==
+    substr(var.sku, 0, length(local.premium_prefix)) == local.premium_prefix ||
+    substr(var.sku, 0, length(local.business_prefix)) ==
     local.business_prefix ? var.zone_redundant : null
   )
 
@@ -65,7 +65,7 @@ resource "azurerm_mssql_database" "sql_db" {
 
   // LTR
   dynamic "long_term_retention_policy" {
-    for_each = substr(var.sku_name, 0, length(local.general_serverless_prefix)) == local.general_serverless_prefix || substr(var.sku_name, 0, length(local.hyperscale_prefix)) == local.hyperscale_prefix ? [] : [1]
+    for_each = substr(var.sku, 0, length(local.general_serverless_prefix)) == local.general_serverless_prefix || substr(var.sku, 0, length(local.hyperscale_prefix)) == local.hyperscale_prefix ? [] : [1]
     content {
       weekly_retention  = var.ltr_weekly_retention
       monthly_retention = var.ltr_monthly_retention
@@ -75,7 +75,7 @@ resource "azurerm_mssql_database" "sql_db" {
   }
 
   tags = merge(var.tags,
-    { "prefix" = substr(var.sku_name, 0, length(local.general_serverless_prefix)) }
+    { "prefix" = substr(var.sku, 0, length(local.general_serverless_prefix)) }
   )
   depends_on = [
     null_resource.this
