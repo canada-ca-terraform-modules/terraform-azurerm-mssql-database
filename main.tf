@@ -93,3 +93,16 @@ resource "azurerm_mssql_database_extended_auditing_policy" "this" {
     azurerm_mssql_database.sql_db
   ]
 }
+
+resource "azurerm_mssql_job_agent" "this" {
+  name        = "${var.name}-job-agent"
+  location    = var.location
+  database_id = azurerm_mssql_database.sql_db.id
+}
+
+resource "azurerm_mssql_job_credential" "this" {
+  name         = "${var.name}-job-credential"
+  job_agent_id = azurerm_mssql_job_agent.this.id
+  username     = var.job_credential.username
+  password     = var.job_credential.password
+}
