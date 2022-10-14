@@ -160,6 +160,6 @@ variable "recover_database_id" {
   default     = null
 }
 
-variable "job_credential" {
+variable "job_agent_credentials" {
   description = "username and password for an elastic job agent"
 }

@@ -103,6 +103,6 @@ resource "azurerm_mssql_job_agent" "this" {
 resource "azurerm_mssql_job_credential" "this" {
   name         = "${var.name}-job-credential"
   job_agent_id = azurerm_mssql_job_agent.this.id
-  username     = var.job_credential.username
-  password     = var.job_credential.password
+  username     = var.job_agent_credentials.username
+  password     = var.job_agent_credentials.password
 }
