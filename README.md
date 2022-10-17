@@ -45,6 +45,7 @@ No modules.
 | <a name="input_job_agent_credentials"></a> [job\_agent\_credentials](#input\_job\_agent\_credentials) | username and password for an elastic job agent | `any` | n/a | yes |
 | <a name="input_kv_name"></a> [kv\_name](#input\_kv\_name) | The keyvault name | `string` | `""` | no |
 | <a name="input_kv_rg"></a> [kv\_rg](#input\_kv\_rg) | The keyvault resource group | `string` | `""` | no |
+| <a name="input_location"></a> [location](#input\_location) | value | `any` | n/a | yes |
 | <a name="input_ltr_monthly_retention"></a> [ltr\_monthly\_retention](#input\_ltr\_monthly\_retention) | The monthly retention policy for an LTR backup. (1 to 120 weeks eg. P1Y, P1M, P4W, P30D) | `any` | `null` | no |
 | <a name="input_ltr_week_of_year"></a> [ltr\_week\_of\_year](#input\_ltr\_week\_of\_year) | The week of the year to take the yearly backup.  Value has to be between 1 and 52. | `number` | `52` | no |
 | <a name="input_ltr_weekly_retention"></a> [ltr\_weekly\_retention](#input\_ltr\_weekly\_retention) | The weekly retention policy for an LTR backup. (1 to 520 weeks eg. P1Y, P1M, P1W, P7D) | `string` | `"P1W"` | no |
