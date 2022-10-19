@@ -42,7 +42,7 @@ No modules.
 | <a name="input_creation_source_database_id"></a> [creation\_source\_database\_id](#input\_creation\_source\_database\_id) | (Optional) The id of the source database to be referred to create the new database. This should only be used for databases with create\_mode values that use another database as reference. Changing this forces a new resource to be created. | `any` | `null` | no |
 | <a name="input_elastic_pool_id"></a> [elastic\_pool\_id](#input\_elastic\_pool\_id) | (Optional) The id of the elastic database pool. | `any` | `null` | no |
 | <a name="input_environment"></a> [environment](#input\_environment) | The environment used for keyvault access | `any` | n/a | yes |
-| <a name="input_job_agent_credentials"></a> [job\_agent\_credentials](#input\_job\_agent\_credentials) | username and password for an elastic job agent | `any` | n/a | yes |
+| <a name="input_job_agent_credentials"></a> [job\_agent\_credentials](#input\_job\_agent\_credentials) | username and password for an elastic job agent | `any` | `null` | no |
 | <a name="input_kv_name"></a> [kv\_name](#input\_kv\_name) | The keyvault name | `string` | `""` | no |
 | <a name="input_kv_rg"></a> [kv\_rg](#input\_kv\_rg) | The keyvault resource group | `string` | `""` | no |
 | <a name="input_location"></a> [location](#input\_location) | value | `any` | n/a | yes |

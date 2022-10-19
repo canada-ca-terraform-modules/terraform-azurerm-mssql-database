@@ -162,6 +162,7 @@ variable "recover_database_id" {
 
 variable "job_agent_credentials" {
   description = "username and password for an elastic job agent"
+  default     = null
 }
 
 variable "location" {
