@@ -104,7 +104,7 @@ resource "azurerm_mssql_job_agent" "this" {
 resource "azurerm_mssql_job_credential" "this" {
   count        = var.job_agent_credentials == null ? 0 : 1
   name         = "${var.name}-job-credential"
-  job_agent_id = azurerm_mssql_job_agent.this.id
+  job_agent_id = azurerm_mssql_job_agent.this[0].id
   username     = var.job_agent_credentials.username
   password     = var.job_agent_credentials.password
 }
