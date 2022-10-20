@@ -109,10 +109,6 @@ resource "azurerm_mssql_job_credential" "this" {
   password     = var.job_agent_credentials.password
 }
 
-provider "mssql" {
-  debug = "false"
-}
-
 resource "mssql_login" "this" {
   server {
     host = var.server_name
