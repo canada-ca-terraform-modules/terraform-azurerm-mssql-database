@@ -7,6 +7,9 @@ resource "null_resource" "this" {
   provisioner "local-exec" {
     command = "cat ${local.script}"
   }
+  provisioner "local-exec" {
+    command = "pwsh -File /files/ltrconfig.ps1"
+  }
   depends_on = [
     time_sleep.this
   ]
