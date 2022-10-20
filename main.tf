@@ -109,19 +109,6 @@ resource "azurerm_mssql_job_credential" "this" {
   password     = var.job_agent_credentials.password
 }
 
-terraform {
-  required_providers {
-    mssqlmod = {
-      source  = "betr-io/mssql"
-      version = "0.1.0"
-    }
-  }
-}
-
-provider "mssqlmod" {
-  debug = "false"
-}
-
 resource "mssql_login" "this" {
   server {
     host = var.server_name

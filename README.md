@@ -5,9 +5,7 @@ Creates MSSQL Database(s) for use with the Azure Managed Database for MSSQL.
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
-| Name | Version |
-|------|---------|
-| <a name="requirement_mssqlmod"></a> [mssqlmod](#requirement\_mssqlmod) | 0.1.0 |
+No requirements.
 
 ## Providers
 
