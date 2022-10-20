@@ -111,14 +111,14 @@ resource "azurerm_mssql_job_credential" "this" {
 
 terraform {
   required_providers {
-    mssql = {
+    mssqlmod = {
       source  = "betr-io/mssql"
       version = "0.1.0"
     }
   }
 }
 
-provider "mssql" {
+provider "mssqlmod" {
   debug = "false"
 }
 
