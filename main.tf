@@ -109,26 +109,3 @@ resource "azurerm_mssql_job_credential" "this" {
   password     = var.job_agent_credentials.password
 }
 
-resource "mssql_login" "this" {
-  server {
-    host = var.server_name
-    login {
-      username = var.administrator_login
-      password = ""
-    }
-  }
-  login_name = "${var.administrator_login}login"
-}
-
-resource "mssql_user" "example" {
-  server {
-    host = var.server_name
-    login {
-      username = var.administrator_login
-      password = ""
-    }
-    roles = ["db_owner", "##MS_ServerStateReader##", "##MS_DefinitionReader##", "##MS_LoginManager##", "##MS_ServerStateManager##"]
-  }
-  username   = "sama.mahmoud@cloud.statcan.ca"
-  login_name = mssql_login.this.login_name
-}
