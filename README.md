@@ -12,6 +12,7 @@ No requirements.
 | Name | Version |
 |------|---------|
 | <a name="provider_azurerm"></a> [azurerm](#provider\_azurerm) | n/a |
+| <a name="provider_mssql"></a> [mssql](#provider\_mssql) | n/a |
 | <a name="provider_null"></a> [null](#provider\_null) | n/a |
 | <a name="provider_time"></a> [time](#provider\_time) | n/a |
 
@@ -27,6 +28,8 @@ No modules.
 | [azurerm_mssql_database_extended_auditing_policy.this](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/mssql_database_extended_auditing_policy) | resource |
 | [azurerm_mssql_job_agent.this](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/mssql_job_agent) | resource |
 | [azurerm_mssql_job_credential.this](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/mssql_job_credential) | resource |
+| [mssql_login.this](https://registry.terraform.io/providers/hashicorp/mssql/latest/docs/resources/login) | resource |
+| [mssql_user.example](https://registry.terraform.io/providers/hashicorp/mssql/latest/docs/resources/user) | resource |
 | [null_resource.this](https://registry.terraform.io/providers/hashicorp/null/latest/docs/resources/resource) | resource |
 | [time_sleep.this](https://registry.terraform.io/providers/hashicorp/time/latest/docs/resources/sleep) | resource |
 | [azurerm_key_vault.sqlhstkv](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/key_vault) | data source |
