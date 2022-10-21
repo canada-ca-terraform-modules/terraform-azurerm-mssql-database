@@ -9,7 +9,7 @@ locals {
   // Minimum time in minutes supported by Terraform configuration (only General Purpose Serverless)
   min_auto_pause_supported = 60
 
-  script = templatefile("${path.module}/files/ltrconfig.ps1.tftpl", {
+  script = templatefile("${path.module}/ltrconfig.ps1.tftpl", {
     db_name             = var.name
     server_name         = var.server_name
     resource_group_name = var.resource_group_name
