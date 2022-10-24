@@ -1,7 +1,8 @@
 <<EOF > ltrconfig.ps1
-/$secureString = ConvertTo-SecureString -String /$env:ARM_CLIENT_SECRET -AsPlainText -Force
-/$pscredential = New-Object System.Management.Automation.PSCredential(/$env:ARM_CLIENT_ID, /$secureString)
-Connect-AzAccount -ServicePrincipal -Credential /$pscredential -TenantId /$env:ARM_TENANT_ID -Subscription /$env:ARM_SUBSCRIPTION_ID | Out-Null
+\$secureString = ConvertTo-SecureString -String \$env:ARM_CLIENT_SECRET -AsPlainText -Force
+\$pscredential = New-Object System.Management.Automation.PSCredential(\$env:ARM_CLIENT_ID, \$secureString)
+
+Connect-AzAccount -ServicePrincipal -Credential \$pscredential -TenantId \$env:ARM_TENANT_ID -Subscription \$env:ARM_SUBSCRIPTION_ID | Out-Null
 if (Get-AzSqlDatabase -ResourceGroupName "${resource_group_name}" -ServerName "${server_name}" | where DatabaseName -eq "${db_name}") {
     Set-AzSqlDatabaseBackupLongTermRetentionPolicy -ResourceGroupName "${resource_group_name}" -ServerName "${server_name}" -DatabaseName "${db_name}" -RemovePolicy -LicenseType "LicenseIncluded"
 }
