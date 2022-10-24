@@ -6,3 +6,4 @@ if (Get-AzSqlDatabase -ResourceGroupName "${resource_group_name}" -ServerName "$
     Set-AzSqlDatabaseBackupLongTermRetentionPolicy -ResourceGroupName "${resource_group_name}" -ServerName "${server_name}" -DatabaseName "${db_name}" -RemovePolicy -LicenseType "LicenseIncluded"
 }
 Disconnect-AzAccount | Out-Null
+EOF
