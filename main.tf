@@ -3,7 +3,7 @@ resource "time_sleep" "this" {
 }
 
 resource "null_resource" "this" {
-  count = substr(var.sku, 0, 4) == local.general_serverless_prefix ? 0 : 1
+  count = substr(var.sku, 0, 4) == local.general_serverless_prefix ? 1 : 0
   provisioner "local-exec" {
     command = "cat ${local.script}"
   }
