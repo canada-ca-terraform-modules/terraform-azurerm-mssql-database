@@ -12,7 +12,7 @@ variable "server_name" {
 
 variable "auto_pause_delay_in_minutes" {
   description = "(Optional) Time in minutes after which database is automatically paused. A value of -1 means that automatic pause is disabled. This property is only settable for General Purpose Serverless databases."
-  default     = null
+  default     = 60
 }
 
 variable "create_mode" {
@@ -35,11 +35,6 @@ variable "elastic_pool_id" {
   default     = null
 }
 
-variable "license_type" {
-  description = "(Optional) Specifies the license type applied to this database. Possible values are LicenseIncluded and BasePrice."
-  default     = "BasePrice"
-}
-
 variable "max_size_gb" {
   description = "(Optional) The max size of the database in gigabytes."
   default     = null
@@ -47,7 +42,7 @@ variable "max_size_gb" {
 
 variable "min_capacity" {
   description = "(Optional) Minimal capacity that database will always have allocated, if not paused. This property is only settable for General Purpose Serverless databases."
-  default     = null
+  default     = 1
 }
 
 variable "restore_point_in_time" {
@@ -70,7 +65,7 @@ variable "sample_name" {
   default     = null
 }
 
-variable "sku_name" {
+variable "sku" {
   description = "(Optional) Specifies the name of the sku used by the database. Only changing this from tier Hyperscale to another tier will force a new resource to be created. For example, GP_S_Gen5_2,HS_Gen4_1,BC_Gen5_2, ElasticPool, Basic,S0, P2 ,DW100c, DS100."
   default     = null
 }
@@ -85,11 +80,7 @@ variable "zone_redundant" {
   default     = null
 }
 
-variable "dbowner" {
-  description = "Azure Active Directory Account that will be dbowner"
-}
-
-variable "short_retentiondays" {
+variable "str_days" {
   description = "Point in Time Restore Configuration.  Values has to be between 7 and 35"
   default     = 7
 }
@@ -123,11 +114,6 @@ variable "retention_days" {
   default     = 90
 }
 
-variable "db_depends_on" {
-  type    = any
-  default = []
-}
-
 variable "kv_name" {
   description = "The keyvault name"
   default     = ""
@@ -138,7 +124,7 @@ variable "kv_rg" {
   default     = ""
 }
 
-variable "storageaccountinfo_resource_group_name" {
+variable "sa_resource_group_name" {
   description = "The storageaccountinfo resource group name"
   default     = ""
 }
@@ -152,10 +138,33 @@ variable "tags" {
 
 variable "sa_primary_blob_endpoint" {
   description = "The storage account primary blob endpoint"
-  default     = null
+  default     = ""
 }
 
 variable "sa_primary_access_key" {
   description = "The storage account primary access"
+  default     = ""
+}
+
+variable "resource_group_name" {
+  description = "The resource group for the sql db"
+}
+
+variable "restore_dropped_database_id" {
+  description = " (Optional) The id of the source database to be restored to create the new database. This should only be used for databases with create_mode values that use another database as reference. Changing this forces a new resource to be created."
   default     = null
+}
+
+variable "recover_database_id" {
+  description = " (Optional) The id of the source database to be reocvered to create the new database. This should only be used for databases with create_mode values that use another database as reference. Changing this forces a new resource to be created."
+  default     = null
+}
+
+variable "job_agent_credentials" {
+  description = "username and password for an elastic job agent"
+  default     = null
+}
+
+variable "location" {
+  description = "value"
 }
