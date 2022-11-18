@@ -4,7 +4,8 @@
 
 Connect-AzAccount -ServicePrincipal -Credential \$pscredential -TenantId \$env:ARM_TENANT_ID -Subscription \$env:ARM_SUBSCRIPTION_ID | Out-Null
 if (Get-AzSqlDatabase -ResourceGroupName "${resource_group_name}" -ServerName "${server_name}" | where DatabaseName -eq "${db_name}") {
-    Set-AzSqlDatabaseBackupLongTermRetentionPolicy -ResourceGroupName "${resource_group_name}" -ServerName "${server_name}" -DatabaseName "${db_name}" -RemovePolicy 
+    Set-AzSqlDatabaseBackupLongTermRetentionPolicy -ResourceGroupName "${resource_group_name}" -ServerName "${server_name}" -DatabaseName "${db_name}" -RemovePolicy
+    Set-AzSqlDatabase -ResourceGroupName "${resource_group_name}" -ServerName "${server_name}" -DatabaseName "${db_name} -LicenseType "LicenseIncluded"
 }
 Disconnect-AzAccount | Out-Null
 EOF
