@@ -21,7 +21,6 @@ resource "azurerm_mssql_database" "sql_db" {
   collation   = var.collation
   max_size_gb = var.max_size_gb
   sku_name    = var.sku
-  #license_type = "LicenseIncluded"
 
   create_mode                 = var.create_mode
   creation_source_database_id = var.creation_source_database_id
@@ -41,7 +40,7 @@ resource "azurerm_mssql_database" "sql_db" {
   )
   min_capacity = (
     substr(var.sku, 0, length(local.general_serverless_prefix)) ==
-    local.general_serverless_prefix ? var.min_capacity : null
+    local.general_serverless_prefix ? var.min_capacity : 0.5
   )
 
   // HYPERSCALE
