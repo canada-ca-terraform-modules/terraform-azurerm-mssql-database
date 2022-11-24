@@ -17,7 +17,7 @@ variable "auto_pause_delay_in_minutes" {
 
 variable "create_mode" {
   description = "(Optional) Specifies how to create the database. Must be either Default to create a new database or PointInTimeRestore to restore from a snapshot. Defaults to Default."
-  default     = null
+  default     = "Default"
 }
 
 variable "creation_source_database_id" {
@@ -27,7 +27,7 @@ variable "creation_source_database_id" {
 
 variable "collation" {
   description = "(Optional) The name of the collation. Applies only if create_mode is Default. Azure default is SQL_LATIN1_GENERAL_CP1_CI_AS. Changing this forces a new resource to be created."
-  default     = null
+  default     = "SQL_Latin1_General_CP1_CI_AS"
 }
 
 variable "elastic_pool_id" {
@@ -42,7 +42,7 @@ variable "max_size_gb" {
 
 variable "min_capacity" {
   description = "(Optional) Minimal capacity that database will always have allocated, if not paused. This property is only settable for General Purpose Serverless databases."
-  default     = 1
+  default     = 0.5
 }
 
 variable "restore_point_in_time" {

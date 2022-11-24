@@ -36,11 +36,11 @@ resource "azurerm_mssql_database" "sql_db" {
     substr(var.sku, 0, length(local.general_serverless_prefix)) ==
     local.general_serverless_prefix &&
     var.auto_pause_delay_in_minutes >= local.min_auto_pause_supported ?
-    var.auto_pause_delay_in_minutes : null
+    var.auto_pause_delay_in_minutes : 60
   )
   min_capacity = (
     substr(var.sku, 0, length(local.general_serverless_prefix)) ==
-    local.general_serverless_prefix ? var.min_capacity : null
+    local.general_serverless_prefix ? var.min_capacity : 0.5
   )
 
   // HYPERSCALE
