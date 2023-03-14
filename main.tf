@@ -3,7 +3,7 @@ resource "time_sleep" "this" {
 }
 
 resource "null_resource" "this" {
-  count = var.sku == null ? 0 : (substr(var.sku, 0, 4) == local.general_serverless_prefix ? 1 : 0)
+  count = substr(var.sku, 0, 4) == local.general_serverless_prefix ? 1 : 0
   provisioner "local-exec" {
     command = "cat ${local.script}"
   }
@@ -118,4 +118,3 @@ resource "azurerm_mssql_job_credential" "this" {
   username     = var.job_agent_credentials.username
   password     = var.job_agent_credentials.password
 }
-
