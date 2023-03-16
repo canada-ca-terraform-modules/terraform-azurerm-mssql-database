@@ -47,28 +47,6 @@ module "sqlserver" {
   tags = { "key" : "value" }
 }
 
-module "elasticpool" {
-  source              = "git::https://github.com/canada-ca-terraform-modules/terraform-azurerm-mssql-elasticpool.git?ref=v1.0.2"
-  name                = "elasticpoolname001"
-  location            = "canadacentral"
-  resource_group_name = "hosting-sql-rg"
-  server_name         = "servername001"
-  sku_name            = "GP_Gen5"
-  tier                = "GeneralPurpose"
-  capacity            = 2
-  min_capacity        = 0.25
-  max_capacity        = 2
-  family              = "Gen5"
-  max_size_gb         = 5
-  #[Optional] Configurations
-  # max_size_gb conflicts with max_size_bytes
-  #max_size_bytes      = 811748818944
-  #zone_redundant      = "BusinessCritical"  
-
-  tags = { "key" = "value" }
-}
-
-
 module "db" {
   source = "git::https://github.com/canada-ca-terraform-modules/terraform-azurerm-mssql-database?ref=v2.0.2"
 
@@ -81,7 +59,7 @@ module "db" {
   server_name = module.sqlserver[0].name
 
   #DB Configuration
-  sku                      = "ElasticPool"
+  sku                      = "GP_Gen5_2"
   kv_name                  = "hostingops-sql-dev-kv"
   kv_rg                    = "hostingops-sql-dev-rg"
   sa_resource_group_name   = "hostingops-sql-dev-rg"
@@ -133,7 +111,7 @@ module "db" {
 
   /*
   #[Optional] Elastic Pool Configuration 
-  elastic_pool_id = module.elasticpool[0].elasticpool.id
+  elastic_pool_id = module.elasticpool[0].elasticpool[0].id
   */
 
   /*
