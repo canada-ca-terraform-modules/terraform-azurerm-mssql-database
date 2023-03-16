@@ -114,21 +114,6 @@ variable "retention_days" {
   default     = 90
 }
 
-variable "kv_name" {
-  description = "The keyvault name"
-  default     = ""
-}
-
-variable "kv_rg" {
-  description = "The keyvault resource group"
-  default     = ""
-}
-
-variable "sa_resource_group_name" {
-  description = "The storageaccountinfo resource group name"
-  default     = ""
-}
-
 variable "tags" {
   type = map(string)
   default = {
@@ -167,4 +152,20 @@ variable "job_agent_credentials" {
 
 variable "location" {
   description = "value"
+}
+
+
+variable "kv_name" {
+  description = "The keyvault name"
+  default     = ""
+}
+
+variable "kv_rg" {
+  description = "The keyvault resource group"
+  default     = ""
+}
+
+variable "sa_resource_group_name" {
+  description = "The storageaccountinfo resource group name"
+  default     = ""
 }

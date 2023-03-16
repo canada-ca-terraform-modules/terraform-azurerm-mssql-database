@@ -1,6 +1,25 @@
 # Terraform for Azure Managed Database MSSQL Database(s)
 
-Creates MSSQL Database(s) for use with the Azure Managed Database for MSSQL.
+**Current Version:** v2.0.2
+
+## Summary 
+Creates Azure Managed Database for MSSQL.
+
+Examples for using the module can be found [here](examples/).
+
+Changelog can be found in [CHANGELOG.md](CHANGELOG.md) 
+
+The Database will be created with the following:
+- Extended Auditing Policy
+
+Using this module you will be able to create:
+- [Azure SQL DB](https://docs.microsoft.com/en-us/azure/azure-sql)
+- [Azure MSSQL Job Credential](https://learn.microsoft.com/en-us/azure/azure-sql/database/elastic-jobs-overview?view=azuresql) 
+- [Azure MSSQL Job Agent](https://learn.microsoft.com/en-us/azure/azure-sql/database/elastic-jobs-overview?view=azuresql) 
+
+### User Input Requirement
+
+See inputs and examples for reference.
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
@@ -77,18 +96,3 @@ No modules.
 |------|-------------|
 | <a name="output_sql_db"></a> [sql\_db](#output\_sql\_db) | n/a |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
-
-## Usage
-
-Examples for this module along with various configurations can be found in the [examples/](examples/) folder.
-
-## Security Controls
-
-* Adheres to the [CIS Microsoft Azure Foundations Benchmark 1.3.0](https://docs.microsoft.com/en-us/azure/governance/policy/samples/cis-azure-1-3-0) for Database Services.
-
-## History
-
-| Date     | Release    | Change                                                      |
-|----------|------------|-------------------------------------------------------------|
-| 20210628 | 20210628.1 | The v1.0.1 release adds additional vars to handle db output |
-| 20210509 | 20210509.1 | The v1.0.0 relase of Terraform module                       |
