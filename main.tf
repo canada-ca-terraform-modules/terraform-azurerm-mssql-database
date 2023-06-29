@@ -68,7 +68,7 @@ resource "azurerm_mssql_database" "sql_db" {
 
   // LTR
   dynamic "long_term_retention_policy" {
-    for_each = substr(var.sku, 0, length(local.general_serverless_prefix)) == local.general_serverless_prefix || substr(var.sku, 0, length(local.hyperscale_prefix)) == local.hyperscale_prefix ? [] : [1]
+    for_each = local.enableltr
     content {
       weekly_retention  = var.ltr_weekly_retention
       monthly_retention = var.ltr_monthly_retention

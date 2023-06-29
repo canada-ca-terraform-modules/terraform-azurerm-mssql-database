@@ -1,5 +1,5 @@
 module "sqlserver" {
-  source = "git::https://github.com/canada-ca-terraform-modules/terraform-azurerm-mssql-server.git?ref=v2.0.1"
+  source = "git::https://github.com/canada-ca-terraform-modules/terraform-azurerm-mssql-server.git?ref=v2.0.2"
 
   name                                          = "servername001"
   environment                                   = "dev"
@@ -48,7 +48,7 @@ module "sqlserver" {
 }
 
 module "db" {
-  source = "git::https://github.com/canada-ca-terraform-modules/terraform-azurerm-mssql-database?ref=v2.0.2"
+  source = "git::https://github.com/canada-ca-terraform-modules/terraform-azurerm-mssql-database?ref=v2.0.3"
 
   name                = "dbname001"
   resource_group_name = "resourcegroupname"
