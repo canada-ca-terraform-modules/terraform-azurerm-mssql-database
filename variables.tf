@@ -12,7 +12,7 @@ variable "server_name" {
 
 variable "auto_pause_delay_in_minutes" {
   description = "(Optional) Time in minutes after which database is automatically paused. A value of -1 means that automatic pause is disabled. This property is only settable for General Purpose Serverless databases."
-  default     = 60
+  default     = null
 }
 
 variable "create_mode" {
@@ -67,7 +67,7 @@ variable "sample_name" {
 
 variable "sku" {
   description = "(Optional) Specifies the name of the sku used by the database. Only changing this from tier Hyperscale to another tier will force a new resource to be created. For example, GP_S_Gen5_2,HS_Gen4_1,BC_Gen5_2, ElasticPool, Basic,S0, P2 ,DW100c, DS100."
-  default     = null
+  default     = "Basic"
 }
 
 variable "administrator_login" {
@@ -87,7 +87,7 @@ variable "str_days" {
 
 variable "ltr_weekly_retention" {
   description = "The weekly retention policy for an LTR backup. (1 to 520 weeks eg. P1Y, P1M, P1W, P7D)"
-  default     = "P1W"
+  default     = null #"P1W"
 }
 
 variable "ltr_monthly_retention" {
@@ -102,7 +102,7 @@ variable "ltr_yearly_retention" {
 
 variable "ltr_week_of_year" {
   description = "The week of the year to take the yearly backup.  Value has to be between 1 and 52."
-  default     = 52
+  default     = null
 }
 
 variable "environment" {
@@ -111,7 +111,7 @@ variable "environment" {
 
 variable "retention_days" {
   description = "Specifies the retention in days for logs for this MSSQL Server"
-  default     = 90
+  default     = null
 }
 
 variable "tags" {

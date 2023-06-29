@@ -1,4 +1,14 @@
-## 2.0.2 (March 16, 2022)
+## 2.0.3 (June 29, 2023)
+
+FEATURES:
+
+ENHANCEMENTS:
+
+BUG FIXES:
+* `azurerm_mssql_database`- long term retention policy disabled by default
+
+
+## 2.0.2 (March 16, 2023)
 
 FEATURES:
 
