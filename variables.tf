@@ -1,52 +1,63 @@
 variable "name" {
   description = "(Required) The name of the Ms SQL Database. Changing this forces a new resource to be created."
+  type        = string
 }
 
 variable "server_id" {
   description = "(Required) The id of the Ms SQL Server on which to create the database. Changing this forces a new resource to be created."
+  type        = string
 }
 
 variable "server_name" {
   description = "(Required) The name of the SQL Server on which to create the database."
+  type        = string
 }
 
 variable "auto_pause_delay_in_minutes" {
   description = "(Optional) Time in minutes after which database is automatically paused. A value of -1 means that automatic pause is disabled. This property is only settable for General Purpose Serverless databases."
+  type        = number
   default     = null
 }
 
 variable "create_mode" {
   description = "(Optional) Specifies how to create the database. Must be either Default to create a new database or PointInTimeRestore to restore from a snapshot. Defaults to Default."
+  type        = string
   default     = "Default"
 }
 
 variable "creation_source_database_id" {
-  description = " (Optional) The id of the source database to be referred to create the new database. This should only be used for databases with create_mode values that use another database as reference. Changing this forces a new resource to be created."
+  description = "(Optional) The id of the source database to be referred to create the new database. This should only be used for databases with create_mode values that use another database as reference. Changing this forces a new resource to be created."
+  type        = string
   default     = null
 }
 
 variable "collation" {
   description = "(Optional) The name of the collation. Applies only if create_mode is Default. Azure default is SQL_LATIN1_GENERAL_CP1_CI_AS. Changing this forces a new resource to be created."
+  type        = string
   default     = "SQL_Latin1_General_CP1_CI_AS"
 }
 
 variable "elastic_pool_id" {
   description = "(Optional) The id of the elastic database pool."
+  type        = string
   default     = null
 }
 
 variable "max_size_gb" {
   description = "(Optional) The max size of the database in gigabytes."
+  type        = number
   default     = null
 }
 
 variable "min_capacity" {
   description = "(Optional) Minimal capacity that database will always have allocated, if not paused. This property is only settable for General Purpose Serverless databases."
-  default     = 0.5
-}
+  type        = number
+  default     = null
+} #0.5 
 
 variable "restore_point_in_time" {
   description = "(Optional) The point in time for the restore. Only applies if create_mode is PointInTimeRestore e.g. 2013-11-08T22:00:40Z"
+  type        = string
   default     = null
 }
 
@@ -56,17 +67,19 @@ variable "read_replica_count" {
 }
 
 variable "read_scale" {
-  description = "(Optional) Read-only connections will be redirected to a high-available replica. Please see Use read-only replicas to load-balance read-only query workloads."
+  description = "(Optional) If enabled, connections that have application intent set to readonly in their connection string may be routed to a readonly secondary replica. This property is only settable for Premium and Business Critical databases."
+  type        = bool
   default     = null
 }
 
 variable "sample_name" {
   description = "(Optional) Specifies the name of the sample schema to apply when creating this database. Possible value is AdventureWorksLT."
+  type        = string
   default     = null
 }
 
 variable "sku" {
-  description = "(Optional) Specifies the name of the sku used by the database. Only changing this from tier Hyperscale to another tier will force a new resource to be created. For example, GP_S_Gen5_2,HS_Gen4_1,BC_Gen5_2, ElasticPool, Basic,S0, P2 ,DW100c, DS100."
+  description = "(Optional) Specifies the name of the sku used by the database. Only changing this from tier Hyperscale to another tier will force a new resource to be created. For example, GP_S_Gen5_2, HS_Gen4_1, BC_Gen5_2, ElasticPool, Basic, S0, P2,DW100c, DS100."
   default     = "Basic"
 }
 

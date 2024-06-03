@@ -1,15 +1,17 @@
 locals {
   read_scale_out = false
   // Service tier prefixes
-  premium_prefix            = "P"
-  business_prefix           = "BC"
-  hyperscale_prefix         = "HS"
-  general_serverless_prefix = "GP_S"
-
-  enableltr = (var.ltr_monthly_retention == null
-    && var.ltr_week_of_year == null
-    && var.ltr_weekly_retention == null
-  && var.ltr_yearly_retention == null) ? [] : [1]
+  premium_prefix               = "P"
+  business_prefix              = "BC"
+  hyperscale_prefix            = "HS"
+  general_serverless_prefix    = "GP_S"
+  hyperscale_serverless_prefix = "HS_S"
+  enableltr = (
+    var.ltr_monthly_retention == null &&
+    var.ltr_week_of_year == null &&
+    var.ltr_weekly_retention == null &&
+    var.ltr_yearly_retention == null
+  ) ? [] : [1]
 
   // Minimum time in minutes supported by Terraform configuration (only General Purpose Serverless)
   min_auto_pause_supported = 60

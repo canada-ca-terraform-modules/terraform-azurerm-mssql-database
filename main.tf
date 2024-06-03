@@ -33,14 +33,13 @@ resource "azurerm_mssql_database" "sql_db" {
 
   // SERVERLESS
   auto_pause_delay_in_minutes = (
-    substr(var.sku, 0, length(local.general_serverless_prefix)) ==
-    local.general_serverless_prefix &&
-    var.auto_pause_delay_in_minutes >= local.min_auto_pause_supported ?
-    var.auto_pause_delay_in_minutes : 60
+    substr(var.sku, 0, length(local.general_serverless_prefix)) == local.general_serverless_prefix ||
+    substr(var.sku, 0, length(local.general_serverless_prefix)) == local.hyperscale_serverless_prefix ?
+    var.auto_pause_delay_in_minutes : null
   )
   min_capacity = (
     substr(var.sku, 0, length(local.general_serverless_prefix)) ==
-    local.general_serverless_prefix ? var.min_capacity : 0.5
+    local.general_serverless_prefix ? var.min_capacity : null
   )
 
   // HYPERSCALE
@@ -87,9 +86,9 @@ resource "azurerm_mssql_database" "sql_db" {
     ]
   }
 
-  depends_on = [
-    null_resource.this
-  ]
+  # depends_on = [
+  #   null_resource.this
+  # ]
 }
 
 resource "azurerm_mssql_database_extended_auditing_policy" "this" {
