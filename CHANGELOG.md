@@ -1,4 +1,4 @@
-## 3.0.1 (June 29, 2023)
+## 2.0.4 (June 6, 2024)
 
 FEATURES:
 
@@ -7,7 +7,7 @@ ENHANCEMENTS:
 BUG FIXES:
 * `azurerm_mssql_database`- Hyperscale variables settable
 
-## 3.0.0 (June 29, 2023)
+## 2.0.3 (June 29, 2023)
 
 FEATURES:
 
