@@ -1,21 +1,24 @@
 # Terraform for Azure Managed Database MSSQL Database(s)
 
-**Current Version:** v2.0.4
+**Current Version:** v2.1.0
 
-## Summary 
+## Summary
+
 Creates Azure Managed Database for MSSQL.
 
 Examples for using the module can be found [here](examples/).
 
-Changelog can be found in [CHANGELOG.md](CHANGELOG.md) 
+Changelog can be found in [CHANGELOG.md](CHANGELOG.md)
 
 The Database will be created with the following:
+
 - Extended Auditing Policy
 
 Using this module you will be able to create:
+
 - [Azure SQL DB](https://docs.microsoft.com/en-us/azure/azure-sql)
-- [Azure MSSQL Job Credential](https://learn.microsoft.com/en-us/azure/azure-sql/database/elastic-jobs-overview?view=azuresql) 
-- [Azure MSSQL Job Agent](https://learn.microsoft.com/en-us/azure/azure-sql/database/elastic-jobs-overview?view=azuresql) 
+- [Azure MSSQL Job Credential](https://learn.microsoft.com/en-us/azure/azure-sql/database/elastic-jobs-overview?view=azuresql)
+- [Azure MSSQL Job Agent](https://learn.microsoft.com/en-us/azure/azure-sql/database/elastic-jobs-overview?view=azuresql)
 
 ### User Input Requirement
 
