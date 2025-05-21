@@ -21,7 +21,7 @@ Using this module you will be able to create:
 
 See inputs and examples for reference.
 
-<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- BEGIN_TF_DOCS -->
 ## Requirements
 
 No requirements.
@@ -60,6 +60,7 @@ No modules.
 | <a name="input_create_mode"></a> [create\_mode](#input\_create\_mode) | (Optional) Specifies how to create the database. Must be either Default to create a new database or PointInTimeRestore to restore from a snapshot. Defaults to Default. | `string` | `"Default"` | no |
 | <a name="input_creation_source_database_id"></a> [creation\_source\_database\_id](#input\_creation\_source\_database\_id) | (Optional) The id of the source database to be referred to create the new database. This should only be used for databases with create\_mode values that use another database as reference. Changing this forces a new resource to be created. | `string` | `null` | no |
 | <a name="input_elastic_pool_id"></a> [elastic\_pool\_id](#input\_elastic\_pool\_id) | (Optional) The id of the elastic database pool. | `string` | `null` | no |
+| <a name="input_enclave_type"></a> [enclave\_type](#input\_enclave\_type) | (Optional) The type of enclave being used by the database.  The options if set are Default or VBS. | `string` | `null` | no |
 | <a name="input_environment"></a> [environment](#input\_environment) | The environment used for keyvault access | `any` | n/a | yes |
 | <a name="input_job_agent_credentials"></a> [job\_agent\_credentials](#input\_job\_agent\_credentials) | username and password for an elastic job agent | `any` | `null` | no |
 | <a name="input_kv_name"></a> [kv\_name](#input\_kv\_name) | The keyvault name | `string` | `""` | no |
@@ -95,4 +96,4 @@ No modules.
 | Name | Description |
 |------|-------------|
 | <a name="output_sql_db"></a> [sql\_db](#output\_sql\_db) | n/a |
-<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- END_TF_DOCS -->

@@ -45,10 +45,10 @@ variable "elastic_pool_id" {
 
 variable "enclave_type" {
   description = "(Optional) The type of enclave being used by the database.  The options if set are Default or VBS."
-  type = string
-  default = null
+  type        = string
+  default     = null
   validation {
-    condition = contains(["Default", "VBS", null], var.enclave_type)
+    condition     = contains(["Default", "VBS", null], var.enclave_type)
     error_message = "The valid values for enclave_type are Default or VBS."
   }
 }
