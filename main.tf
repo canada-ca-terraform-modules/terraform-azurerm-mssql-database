@@ -21,6 +21,7 @@ resource "azurerm_mssql_database" "sql_db" {
   collation    = var.collation
   max_size_gb  = var.max_size_gb
   sku_name     = var.sku
+  storage_account_type = "ZRS"
   enclave_type = var.enclave_type
 
   create_mode                 = var.create_mode
