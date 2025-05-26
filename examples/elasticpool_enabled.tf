@@ -1,5 +1,5 @@
 module "sqlserver" {
-  source = "git::https://github.com/canada-ca-terraform-modules/terraform-azurerm-mssql-server.git?ref=v2.0.2"
+  source = "git::https://github.com/canada-ca-terraform-modules/terraform-azurerm-mssql-server.git?ref=v2.1.0"
 
   name                                          = "servername001"
   environment                                   = "dev"
@@ -48,7 +48,7 @@ module "sqlserver" {
 }
 
 module "elasticpool" {
-  source              = "git::https://github.com/canada-ca-terraform-modules/terraform-azurerm-mssql-elasticpool.git?ref=v1.0.2"
+  source              = "git::https://github.com/canada-ca-terraform-modules/terraform-azurerm-mssql-elasticpool.git?ref=v1.1.0"
   name                = "elasticpoolname001"
   location            = "canadacentral"
   resource_group_name = "hosting-sql-rg"
@@ -70,12 +70,13 @@ module "elasticpool" {
 
 
 module "db" {
-  source = "git::https://github.com/canada-ca-terraform-modules/terraform-azurerm-mssql-database?ref=v2.0.3"
+  source = "git::https://github.com/canada-ca-terraform-modules/terraform-azurerm-mssql-database?ref=v2.1.0"
 
   name                = "dbname001"
   resource_group_name = "resourcegroupname"
   location            = "canadacentral"
   environment         = "dev"
+  enclave_type        = "Default"
 
   server_id   = module.sqlserver[0].id
   server_name = module.sqlserver[0].name

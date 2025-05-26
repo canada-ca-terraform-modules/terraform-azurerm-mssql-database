@@ -1,4 +1,4 @@
-## 2.1.0 (May 21, 2025)
+## 2.1.0 (May 26, 2025)
 
 FEATURES:
 * `azurerm_mssql_database`- added parameter for **enclave_type**.
