@@ -76,7 +76,6 @@ module "db" {
   resource_group_name = "resourcegroupname"
   location            = "canadacentral"
   environment         = "dev"
-  enclave_type        = "Default"
 
   server_id   = module.sqlserver[0].id
   server_name = module.sqlserver[0].name
