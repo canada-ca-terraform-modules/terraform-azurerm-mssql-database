@@ -16,13 +16,13 @@ resource "null_resource" "this" {
 }
 
 resource "azurerm_mssql_database" "sql_db" {
-  name         = var.name
-  server_id    = var.server_id
-  collation    = var.collation
-  max_size_gb  = var.max_size_gb
-  sku_name     = var.sku
+  name                 = var.name
+  server_id            = var.server_id
+  collation            = var.collation
+  max_size_gb          = var.max_size_gb
+  sku_name             = var.sku
   storage_account_type = "Zone"
-  enclave_type = var.enclave_type
+  enclave_type         = var.enclave_type
 
   create_mode                 = var.create_mode
   creation_source_database_id = var.creation_source_database_id

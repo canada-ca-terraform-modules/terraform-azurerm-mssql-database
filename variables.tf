@@ -48,7 +48,7 @@ variable "enclave_type" {
   type        = string
   default     = null
   validation {
-    condition     = contains(["Default", "VBS", null], var.enclave_type)
+    condition     = var.enclave_type == null ? true : (contains(["Default", "VBS"], var.enclave_type))
     error_message = "The valid values for enclave_type are Default or VBS."
   }
 }
