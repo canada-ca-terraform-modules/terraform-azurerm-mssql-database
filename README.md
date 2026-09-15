@@ -1,6 +1,6 @@
 # Terraform for Azure Managed Database MSSQL Database(s)
 
-**Current Version:** v2.1.0
+**Current Version:** v3.0.0
 
 ## Summary
 
@@ -27,13 +27,15 @@ See inputs and examples for reference.
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
 
-No requirements.
+| Name | Version |
+|------|---------|
+| <a name="requirement_azurerm"></a> [azurerm](#requirement\_azurerm) | ~> 5.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_azurerm"></a> [azurerm](#provider\_azurerm) | n/a |
+| <a name="provider_azurerm"></a> [azurerm](#provider\_azurerm) | ~> 5.0 |
 | <a name="provider_null"></a> [null](#provider\_null) | n/a |
 | <a name="provider_time"></a> [time](#provider\_time) | n/a |
 
@@ -91,7 +93,7 @@ No modules.
 | <a name="input_server_name"></a> [server\_name](#input\_server\_name) | (Required) The name of the SQL Server on which to create the database. | `string` | n/a | yes |
 | <a name="input_sku"></a> [sku](#input\_sku) | (Optional) Specifies the name of the sku used by the database. Only changing this from tier Hyperscale to another tier will force a new resource to be created. For example, GP\_S\_Gen5\_2, HS\_Gen4\_1, BC\_Gen5\_2, ElasticPool, Basic, S0, P2,DW100c, DS100. | `string` | `"Basic"` | no |
 | <a name="input_str_days"></a> [str\_days](#input\_str\_days) | Point in Time Restore Configuration.  Values has to be between 7 and 35 | `number` | `7` | no |
-| <a name="input_tags"></a> [tags](#input\_tags) | n/a | `map(string)` | <pre>{<br>  "environment": "dev"<br>}</pre> | no |
+| <a name="input_tags"></a> [tags](#input\_tags) | n/a | `map(string)` | <pre>{<br/>  "environment": "dev"<br/>}</pre> | no |
 | <a name="input_zone_redundant"></a> [zone\_redundant](#input\_zone\_redundant) | (Optional) Whether or not this database is zone redundant, which means the replicas of this database will be spread across multiple availability zones. This property is only settable for Premium and Business Critical databases. | `any` | `null` | no |
 
 ## Outputs
