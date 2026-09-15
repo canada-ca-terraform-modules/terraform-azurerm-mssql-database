@@ -1,3 +1,8 @@
+## 3.0.0 (September 15, 2026)
+
+ENHANCEMENTS:
+* Updated to support AzureRM v5.
+
 ## 2.1.0 (May 26, 2025)
 
 FEATURES:
