@@ -1,6 +1,6 @@
 # Terraform for Azure Managed Database MSSQL Database(s)
 
-**Current Version:** v2.1.0
+**Current Version:** v3.0.0
 
 ## Summary
 
